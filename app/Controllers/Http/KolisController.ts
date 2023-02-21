@@ -10,7 +10,7 @@ export default class KolisController {
     public async index() {
         let kolis= await Koli.query()
         .preload('artist')
-        .preload('pays').limit(18).orderBy('id', 'desc')
+        .preload('pays').orderBy('id', 'desc').limit(12)
         return kolis
     }
 
@@ -66,8 +66,9 @@ export default class KolisController {
 
     }
     public async search({ request }: HttpContextContract) {
+        let input=request.input("artist") || 'a'
         let Kolis= await Koli.query().preload('artist',
-        (query) => query.where('artist_nom','LIKE','%'+request.input("artist")+'%')
+        (query) => query.where('artist_nom','LIKE','%'+input+'%')
         ).limit(24).orderBy('id', 'desc')
         let newKolis :object[]=[]
         for (let koli of Kolis) {
@@ -78,7 +79,18 @@ export default class KolisController {
         return newKolis
 
     }
-    public async update() {
+    public async searchbyartistkoli({request}:HttpContextContract) {
+        let input=request.param('titre') || 'a'
+        let koli=Koli.query().preload('artist').where('titre','LIKE','%'+input+'%').limit(24).orderBy('id', 'desc')
+        return koli
+    }
 
+    public async getwithpagin({request}:HttpContextContract){
+        const limit=18
+        let page=request.param('page')
+        let kolis= await Koli.query()
+        .preload('artist')
+        .orderBy('id', 'desc').paginate(page,limit)
+        return kolis
     }
 }
