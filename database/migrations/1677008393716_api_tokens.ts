@@ -9,7 +9,9 @@ export default class extends BaseSchema {
       table.integer('user_id').unsigned().references('id').inTable('users').onDelete('CASCADE')
       table.string('name').notNullable()
       table.string('type').notNullable()
+      table.date('expires_at').notNullable()
       table.string('token', 64).notNullable().unique()
+      
 
       /**
        * Uses timestampz for PostgreSQL and DATETIME2 for MSSQL

@@ -19,6 +19,7 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
+import AuthMiddleware from 'App/Middleware/Auth'
 
 // Route.get('/', async () => {
 //   return { hello: 'world' }
@@ -29,3 +30,10 @@ Route.post('koli/search','kolisController.search')
 Route.post('koli/pays/search','PaysController.search')
 Route.get('koli/titre/:titre','kolisController.searchbyartistkoli')
 Route.get('koli/pagination/page/:page','kolisController.getwithpagin')
+
+//for admins
+Route.resource('admin','UsersController')
+Route.post('login','UsersController.login')
+// Route.get('logout','UsersController.logout')
+Route.get('auth','UsersController.auth')
+

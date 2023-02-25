@@ -19,6 +19,7 @@ export default class KolisController {
         if (request.input("koli_secret_key") != "sanba_gueladiegui") {
             return response.json({ error: "vous avez acces a cette page", succes: false })
         }
+        // return response.json({data:request.body()}) 
         let file = request.file("koli",
             {
                 size: '1000mb',
@@ -26,13 +27,13 @@ export default class KolisController {
             }
         )
         if (!file) {
-            return response.json({ error: "aucun fichier audio trouver", succes: false })
+            return response.json({ error: "aucun fichier audio trouver", succes: false ,daata:request})
         }
         if (!file.isValid) {
             return response.json({ error: file.errors, succes: false })
         }
 
-        file.clientName=new Date().getSeconds() +file.clientName
+        file.clientName=new Date().getTime() +file.clientName
         await file.move(Application.publicPath('uploads/kolis'))
         let audio= "/uploads/kolis/"+file.clientName
         let image="/uploads/default.jpg"
@@ -49,7 +50,7 @@ export default class KolisController {
             if (!img.isValid) {
                 return response.json({ error: img.errors, succes: false })
             }
-            img.clientName= new Date().getSeconds() +img.clientName
+            img.clientName= new Date().getTime() +img.clientName
             await img.move(Application.publicPath('uploads/images'))
             image="/uploads/images/"+img.clientName
         }
@@ -86,10 +87,11 @@ export default class KolisController {
     }
 
     public async getwithpagin({request}:HttpContextContract){
-        const limit=18
+        const limit=12
         let page=request.param('page')
         let kolis= await Koli.query()
         .preload('artist')
+        .preload('pays')
         .orderBy('id', 'desc').paginate(page,limit)
         return kolis
     }
