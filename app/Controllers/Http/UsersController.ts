@@ -26,7 +26,12 @@ export default class UsersController {
         return {status:false,message:"Email ou mot de passe incorrect",}
     }
     public async store({request}:HttpContextContract){
-        const userData = request.only(['name', 'email', 'password'])
+        let userdefaul={
+            email: "alpapie0908@gmail.com",
+            password: "alpapie",
+            name: "Mamoudou ndiaye",
+        }
+        let userData = request.only(['name', 'email', 'password']) || userdefaul
         const user = await User.create(userData)
         await user.save()
         return user

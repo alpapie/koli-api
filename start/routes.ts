@@ -19,7 +19,6 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
-import AuthMiddleware from 'App/Middleware/Auth'
 
 // Route.get('/', async () => {
 //   return { hello: 'world' }
