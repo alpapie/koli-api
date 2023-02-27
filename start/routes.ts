@@ -20,9 +20,9 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-// Route.get('/', async () => {
-//   return { hello: 'world' }
-// })
+Route.get('/', async () => {
+  return { hello: 'world' }
+})
 Route.resource('koli','kolisController').except(['edit','update','create'])
 Route.resource('artists','ArtistsController').except(['edit','update','create'])
 Route.post('koli/search','kolisController.search')
