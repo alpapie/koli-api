@@ -25,10 +25,10 @@ Route.get('/', async () => {
 })
 Route.resource('koli','KolisController').except(['edit','update','create'])
 Route.resource('artists','ArtistsController').except(['edit','update','create'])
-Route.post('koli/search','kolisController.search')
+Route.post('koli/search','KolisController.search')
 Route.post('koli/pays/search','PaysController.search')
-Route.get('koli/titre/:titre','kolisController.searchbyartistkoli')
-Route.get('koli/pagination/page/:page','kolisController.getwithpagin')
+Route.get('koli/titre/:titre','KolisController.searchbyartistkoli')
+Route.get('koli/pagination/page/:page','KolisController.getwithpagin')
 
 //for admins
 Route.resource('admin','UsersController')
