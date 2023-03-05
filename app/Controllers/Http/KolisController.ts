@@ -20,7 +20,7 @@ export default class KolisController {
             return response.json({ error: "vous avez acces a cette page", succes: false })
         }
         // return response.json({data:request.body()}) 
-        let file = request.file("koli",
+        let file =  request.file("koli",
             {
                 size: '1000mb',
                 extnames: ["mp3", "wav", "aac", "wma", "ogg", "flac", "alac", "aiff", "m4a", "opus"],
